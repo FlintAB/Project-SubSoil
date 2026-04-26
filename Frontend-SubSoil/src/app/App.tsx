@@ -1,12 +1,21 @@
-import './App.css'
+import { Link, Outlet } from "@tanstack/react-router"
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 
-function App() {
+export const App = () => {
+   return (
+      <>      
+         <Link to="/">
+            Map Page
+         </Link>{' '}
 
-  return (
-    <>
-      <h1>Get started</h1>
-    </>
-  )
+         <Link to="/analysis">
+            Analysis Page
+         </Link>
+
+         <div>Hello "__root"!</div>
+
+         <Outlet />
+         <TanStackRouterDevtools />
+      </>
+   )
 }
-
-export default App
