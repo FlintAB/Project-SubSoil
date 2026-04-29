@@ -1,19 +1,36 @@
 import styles from './Map.module.css'
-import type { LatLngExpression } from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet"
+import { useAppStore } from '../../../app/store/useAppStore';
+import { useShallow } from 'zustand/react/shallow';
+import { MapMarker } from './MapMarker';
+import { defaultPosition, ATTRIBUTION, URL } from '../lib/mapConfig';
+import { MOCK_WELLS } from '../model/well.mock';
 
 export const Map = () => {
-   const defaultPosition: LatLngExpression = [55.75, 37.61];
+   const [selectedWells, clearSelection] = useAppStore(useShallow((state) => [
+      state.selectedWells, 
+      state.clearSelection,
+   ]))
+
+   const handleClearSelection = () => clearSelection()
 
    return (
       <div className={styles['div_container']}>
+
          <p>MAP</p>
-         <MapContainer center={defaultPosition} zoom={13} className={styles['map_container']}>
+         <p>Selected Well: {selectedWells.length ? selectedWells.join(', ') : 'None'}</p>
+         <button onClick={handleClearSelection}>Reset selection</button>
+
+         <MapContainer center={defaultPosition} zoom={13} doubleClickZoom={false} className={styles['map_container']}>
+
+            {MOCK_WELLS.map((well) => <MapMarker key={well.id} {...well}/> )}
+
             <TileLayer 
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"            
+            attribution={ATTRIBUTION}
+            url={URL}           
             />
          </MapContainer>
+
       </div>
    )
 }

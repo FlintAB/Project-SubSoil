@@ -12,6 +12,8 @@ type Actions = {
    setActiveWell: (activeWell: State['activeWell']) => void
    setActiveLog: (activeLog: State['activeLog']) => void
    setActiveDepth: (activeDepth: State['activeDepth']) => void
+   clearSelection: () => void
+   toggleWellSelection: (id: string) => void
 }
 
 export const useAppStore = create<State & Actions>((set) => ({
@@ -24,4 +26,13 @@ export const useAppStore = create<State & Actions>((set) => ({
    setActiveWell: (activeWell) => set({activeWell}),
    setActiveLog: (activeLog) => set({activeLog}),
    setActiveDepth: (activeDepth) => set({activeDepth}),
+
+   clearSelection: () => set({selectedWells: []}),
+
+   toggleWellSelection: (id) => set((state) => ({
+      selectedWells: state.selectedWells.includes(id)
+      ? state.selectedWells.filter(wellId => wellId !== id)
+      : [...state.selectedWells, id]
+   }))
+
 }))
