@@ -1,0 +1,11 @@
+.container {
+   height: 600px;
+
+   border: solid 1px black;
+
+   margin: auto;
+}
+
+.hovered-cursor {
+   cursor: pointer;
+}

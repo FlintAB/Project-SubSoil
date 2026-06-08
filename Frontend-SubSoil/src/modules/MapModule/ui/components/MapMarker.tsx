@@ -1,10 +1,12 @@
-import type { Well } from "../model/types"
 import { Marker, Popup } from "react-leaflet"
 import { useShallow } from "zustand/shallow"
-import { useAppStore } from "../../../app/store/useAppStore"
-import { selectedMarker, defaultMarker } from "../../../shared/lib/leaflet"
+import { useAppStore } from "../../../../app/store/useAppStore"
+import { selectedMarker, defaultMarker } from "../../../../shared/lib/leaflet"
 
-export const MapMarker = ({id, name, lat, lng}: Well) => {
+import type { Well } from "../../../../entities/well/types/types"
+
+
+export const MapMarker = ({id, name, lat, lng}: Omit<Well, 'trajectory' | 'logs'>) => {
    const [selectedWells, toggleWellSelection] = useAppStore(useShallow((state) => [
       state.selectedWells, 
       state.toggleWellSelection,

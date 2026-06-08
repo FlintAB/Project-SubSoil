@@ -1,6 +1,6 @@
-import { useAppStore } from "../../../app/store/useAppStore";
-import { useShallow } from 'zustand/react/shallow';
-import type { ChartPanelProps } from "../model/types";
+import { useShallow } from "zustand/shallow"
+import { useAppStore } from "../../../../app/store/useAppStore"
+import type { ChartPanelProps } from "../../model/types"
 
 export const ChartPanel = ({title, unit, children}: ChartPanelProps) => {
 
@@ -23,7 +23,7 @@ export const ChartPanel = ({title, unit, children}: ChartPanelProps) => {
                <label key={id}>
                   <input
                      type="checkbox"
-                     checked={!hiddenWells.includes(id)}
+                     checked={!hiddenWells.has(id)}
                      onChange={() => toggleWellVisibility(id)}
                   />
 

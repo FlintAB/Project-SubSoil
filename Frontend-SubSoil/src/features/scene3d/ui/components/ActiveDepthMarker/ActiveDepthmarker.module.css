@@ -1,0 +1,7 @@
+.info-card {
+   background: lightgray;
+   border-radius: 6px;
+   padding: 8px;
+   font-size: 12px;
+   white-space: nowrap;
+}

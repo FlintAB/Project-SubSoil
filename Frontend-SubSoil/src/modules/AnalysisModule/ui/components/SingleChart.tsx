@@ -10,29 +10,32 @@ import {
    ResponsiveContainer,
 } from "recharts"
 import { useShallow } from 'zustand/react/shallow';
-import { useAppStore } from "../../../app/store/useAppStore"
-import type { ChartMouseData, SingleChartProps } from "../model/types"
+import { useAppStore } from "../../../../app/store/useAppStore"
+import type { ChartMouseData, SingleChartProps } from "../../model/types"
 
-export const SingleChart = ({ data, wellIds, syncId, unit }: SingleChartProps) => {
+export const SingleChart = ({ data, wellIds, syncId, unit, property }: SingleChartProps) => {
 
-   const [activeDepth, setActiveDepth, hiddenWells] = useAppStore(useShallow((state) => [
+   const [activeDepth, setActiveDepth, setActiveLog, hiddenWells] = useAppStore(useShallow((state) => [
       state.activeDepth, 
       state.setActiveDepth,
+      state.setActiveLog,
       state.hiddenWells, 
    ]))
 
    const handleAddDepth = (mouseEventData: unknown) => {
       const data = mouseEventData as ChartMouseData
 
-      if (data.activeLabel && typeof data.activeLabel  === 'number'){
+      if (typeof data.activeLabel  === 'number'){
          const depth = data.activeLabel
+
          setActiveDepth(depth)
+         setActiveLog(property)
       }
    }
 
    const handleClearDepth = () => setActiveDepth(null)
 
-   const visibleWells = wellIds.filter(id => !hiddenWells.includes(id))
+   const visibleWells = wellIds.filter(id => !hiddenWells.has(id))
 
    return (
       <ResponsiveContainer width="100%" height={300}>

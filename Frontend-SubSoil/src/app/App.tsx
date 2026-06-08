@@ -12,6 +12,10 @@ export const App = () => {
             Analysis Page
          </Link>
 
+         <Link to="/scene3d">
+            Scene 3D Page
+         </Link>
+
          <div>Hello "__root"!</div>
 
          <Outlet />
