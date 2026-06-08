@@ -48,4 +48,8 @@ export type GetSegmentColorProps = {
    segment: TrajectorySegment
    logs: Log[]
    property: keyof Omit<Log, "depth">
+   range: {
+      min: number
+      max: number
+   } | null
 }

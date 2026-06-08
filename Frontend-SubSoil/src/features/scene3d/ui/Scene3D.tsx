@@ -1,3 +1,5 @@
+import { useMemo } from "react"
+
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 
@@ -15,14 +17,32 @@ import styles from './Scene3D.module.css'
 
 export const Scene3D = () => {
    const isHovered = useAppStore(state => !!state.hoveredWell)
-   const [selectedWells, hiddenWells] = useAppStore(useShallow(state => [
+   const [selectedWells, hiddenWells, activeLog] = useAppStore(useShallow(state => [
       state.selectedWells,
-      state.hiddenWells
+      state.hiddenWells,
+      state.activeLog,
    ]))
 
    const visibleWells = MOCK_WELLS.filter(well => 
       selectedWells.includes(well.id) && !hiddenWells.has(well.id)
    )
+
+
+   const range = useMemo(() => {
+      if (!activeLog) {
+         return null
+      }
+
+      const values = visibleWells.flatMap(
+         well => well.logs.map( log => log[activeLog])
+      )
+
+      return {
+         min: Math.min(...values),
+         max: Math.max(...values),
+      }
+   }, [visibleWells, activeLog])
+
 
    return (
       <div className={`${styles.container} ${isHovered ? styles['hovered-cursor'] : ''}`}>
@@ -42,6 +62,7 @@ export const Scene3D = () => {
                   wellId={well.id}    
                   trajectory={well.trajectory} 
                   logs={well.logs}
+                  range={range}
                   />
                   <ActiveDepthMarker trajectory={well.trajectory} wellId={well.id} logs={well.logs} />
                </Fragment>

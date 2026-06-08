@@ -9,7 +9,7 @@ import { WellTrajectorySegment } from "./WellTrajectorySegment"
 
 import type { WellMeshProps } from "../../model/types"
 
-export const WellMesh = ({wellId, trajectory, logs}: WellMeshProps) => {
+export const WellMesh = ({wellId, trajectory, logs, range}: WellMeshProps) => {
    const [setHoveredWell, setActiveWell, activeDepth, activeLog] = useAppStore(useShallow(state => [
       state.setHoveredWell,
       state.setActiveWell,
@@ -39,7 +39,7 @@ export const WellMesh = ({wellId, trajectory, logs}: WellMeshProps) => {
             isLastSegment: index === segments.length - 1,
          })
          
-         const segmentColor = getSegmentColor({ segment, logs, property: activeLog ?? 'gammaRay' })
+         const segmentColor = getSegmentColor({ segment, logs, property: activeLog ?? 'gammaRay', range })
 
             return (
                <WellTrajectorySegment 

@@ -1,37 +1,21 @@
-import type { LogProperty } from "../../../entities/well/types/types"
-import { COLOR_SCALE_CONFIG } from "../config/colorScaleConfig"
-
 /**
- * Преобразует значение каротажного параметра в цвет HSL.
+ * Преобразует значение каротажного параметра
+ * в цвет HSL на основе глобального диапазона.
  *
- * Цвет вычисляется на основе непрерывной цветовой шкалы:
- * - минимальные значения отображаются синим цветом;
- * - средние значения проходят через зелёный и жёлтый;
- * - максимальные значения отображаются красным цветом.
+ * Цветовая шкала:
  *
- * Алгоритм работы:
- * 1. Получает диапазон допустимых значений для выбранного типа каротажа.
- * 2. Нормализует значение в диапазон [0; 1].
- * 3. Ограничивает результат на случай выхода за границы шкалы.
- * 4. Преобразует нормализованное значение в оттенок HSL.
- * 5. Возвращает CSS-цвет в формате `hsl(...)`.
+ * blue   → low values
+ * green  → medium values
+ * yellow → high values
+ * red    → maximum values
  *
- * Используется для цветовой визуализации сегментов траектории скважины в 3D-сцене.
+ * @param value Значение каротажа.
+ * @param min Минимальное значение шкалы.
+ * @param max Максимальное значение шкалы.
  *
- * @param value Значение каротажного параметра.
- * @param property Тип каротажа (gammaRay, resistivity и др.).
- *
- * @returns Цвет в формате HSL.
- *
- * @example
- * getColorByLogValue(25, 'gammaRay') => hsl(180, 100%, 50%)
- *
- * @example
- * getColorByLogValue(100, 'gammaRay') => hsl(0, 100%, 50%)
+ * @returns Цвет в формате hsl(...)
  */
-export function getColorByLogValue(value: number, property: LogProperty) {
-   const { min, max } = COLOR_SCALE_CONFIG[property]
-
+export function getColorByLogValue(value: number, min: number, max: number) {
    // Нормализация значения в диапазон [0; 1]
    const normalized = (value - min) / (max - min)
 

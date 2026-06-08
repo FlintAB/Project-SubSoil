@@ -10,6 +10,10 @@ export type WellMeshProps = {
    trajectory: Trajectory[]
    color?: string
    logs: Log[]
+   range: {
+      min: number
+      max: number
+   } | null
 }
 
 export type ActiveDepthMarkerProps = {

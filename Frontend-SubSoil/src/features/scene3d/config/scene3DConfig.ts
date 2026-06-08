@@ -10,9 +10,10 @@ const LOG_LEGENDS = {
       title: 'Gamma Ray',
       unit: 'API',
       ranges: [
-         { color: 'blue', label: '0 - 40' },
-         { color: 'yellow', label: '40 - 70' },
-         { color: 'red', label: '70+' },
+         { color: 'blue', label: 'Низкие значения' },
+         { color: 'lime', label: 'Средние значения' },
+         { color: 'yellow', label: 'Высокие значения' },
+         { color: 'red', label: 'Максимальные значения' },
       ],
    },
 
@@ -20,9 +21,10 @@ const LOG_LEGENDS = {
       title: 'Resistivity',
       unit: 'Ohm·m',
       ranges: [
-         { color: 'blue', label: '0 - 120' },
-         { color: 'yellow', label: '120 - 150' },
-         { color: 'red', label: '150+' },
+         { color: 'blue', label: 'Низкие значения' },
+         { color: 'lime', label: 'Средние значения' },
+         { color: 'yellow', label: 'Высокие значения' },
+         { color: 'red', label: 'Максимальные значения' },
       ],
    },
 }
