@@ -1,15 +1,19 @@
-import styles from './Map.module.css'
-import { MapContainer, TileLayer } from "react-leaflet"
 import { useAppStore } from '../../../app/store/useAppStore';
 import { useShallow } from 'zustand/react/shallow';
+
+import { MapContainer, TileLayer } from "react-leaflet"
+
 import { MapMarker } from './components/MapMarker';
+
 import { defaultPosition, ATTRIBUTION, URL } from '../config/mapConfig';
-import { MOCK_WELLS } from '../../../entities/well/model/well.mock';
+
+import styles from './Map.module.css'
 
 export const Map = () => {
-   const [selectedWells, clearSelection] = useAppStore(useShallow((state) => [
+   const [selectedWells, clearSelection, wells] = useAppStore(useShallow((state) => [
       state.selectedWells, 
       state.clearSelection,
+      state.wells
    ]))
 
    const handleClearSelection = () => clearSelection()
@@ -23,7 +27,7 @@ export const Map = () => {
 
          <MapContainer center={defaultPosition} zoom={13} doubleClickZoom={false} className={styles['map_container']}>
 
-            {MOCK_WELLS.map((well) => <MapMarker key={well.id} {...well}/> )}
+            {wells.map((well) => <MapMarker key={well.id} {...well}/> )}
 
             <TileLayer 
             attribution={ATTRIBUTION}

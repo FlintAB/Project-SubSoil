@@ -1,14 +1,20 @@
+import { useShallow } from "zustand/shallow"
 import { useAppStore } from "../../../app/store/useAppStore"
-import { MOCK_WELLS } from "../../../entities/well/model/well.mock"
+
 import { CHART_CONFIG } from "../config/chartConfig"
+
 import { mergeDataByProperty } from "../lib/mergeDataByProperty"
+
 import { ChartPanel } from "./components/ChartPanel"
 import { SingleChart } from "./components/SingleChart"
 
 export const Analysis = () => {
-   const selectedWells = useAppStore((state) => state.selectedWells)
+   const [selectedWells, wells] = useAppStore(useShallow(state => [
+      state.selectedWells,
+      state.wells,
+   ]))
 
-   const selectedWellData = MOCK_WELLS.filter((well) => selectedWells.includes(well.id))
+   const selectedWellData = wells.filter((well) => selectedWells.includes(well.id))
 
    if (selectedWellData.length === 0) return <h2>No wells selected</h2>
    const depths = selectedWellData[0].logs.map((p) => p.depth)

@@ -7,13 +7,19 @@ export type Trajectory = {
 
 export type Log = {
    depth: number
+
    gammaRay: number
    resistivity: number
+
+   density: number
+   porosity: number
 }
 
 export type LogProperty =
    | 'gammaRay'
    | 'resistivity'
+   | 'density'
+   | 'porosity'
 
 export type Well = {
    id: string

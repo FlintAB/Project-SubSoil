@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 
 import { CAMERA_CONFIG } from "../config/scene3DConfig"
-import { MOCK_WELLS } from "../../../entities/well/model/well.mock"
 
 import { useAppStore } from "../../../app/store/useAppStore"
 import { useShallow } from "zustand/shallow"
@@ -17,13 +16,14 @@ import styles from './Scene3D.module.css'
 
 export const Scene3D = () => {
    const isHovered = useAppStore(state => !!state.hoveredWell)
-   const [selectedWells, hiddenWells, activeLog] = useAppStore(useShallow(state => [
+   const [selectedWells, hiddenWells, activeLog, wells] = useAppStore(useShallow(state => [
       state.selectedWells,
       state.hiddenWells,
       state.activeLog,
+      state.wells
    ]))
 
-   const visibleWells = MOCK_WELLS.filter(well => 
+   const visibleWells = wells.filter(well => 
       selectedWells.includes(well.id) && !hiddenWells.has(well.id)
    )
 
