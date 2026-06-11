@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { useWells } from "../../../entities/well/api/useWells"
 
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
@@ -15,33 +16,57 @@ import { Fragment } from "react/jsx-runtime"
 import styles from './Scene3D.module.css'
 
 export const Scene3D = () => {
+   const {data, isError, isLoading, error} = useWells()
+
    const isHovered = useAppStore(state => !!state.hoveredWell)
-   const [selectedWells, hiddenWells, activeLog, wells] = useAppStore(useShallow(state => [
+   const [selectedWells, hiddenWells, activeLog] = useAppStore(useShallow(state => [
       state.selectedWells,
       state.hiddenWells,
       state.activeLog,
-      state.wells
    ]))
 
-   const visibleWells = wells.filter(well => 
-      selectedWells.includes(well.id) && !hiddenWells.has(well.id)
+
+   const visibleWells = useMemo(() => {
+      const wells = data ?? []
+
+      return wells.filter(
+         well =>
+            selectedWells.includes(well.id) &&
+            !hiddenWells.has(well.id)
+      )
+   },
+      [data, selectedWells, hiddenWells]
    )
 
 
    const range = useMemo(() => {
-      if (!activeLog) {
-         return null
+      if (!activeLog) return null
+
+      let min = Infinity
+      let max = -Infinity
+
+      for (const well of visibleWells) {
+         for (const log of well.logs) {
+            const value = log[activeLog]
+
+            if (value < min) min = value
+            if (value > max) max = value
+         }
       }
 
-      const values = visibleWells.flatMap(
-         well => well.logs.map( log => log[activeLog])
-      )
+      if (min === Infinity) return null
 
-      return {
-         min: Math.min(...values),
-         max: Math.max(...values),
-      }
+      return { min, max }
    }, [visibleWells, activeLog])
+
+
+   if (isLoading) {
+      return <div>Загрузка скважин...</div>
+   }
+
+   if (isError) {
+      return <div>Ошибка при получении скважин: {error.message}</div>
+   }
 
 
    return (

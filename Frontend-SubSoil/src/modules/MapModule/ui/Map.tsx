@@ -1,3 +1,4 @@
+import { useWells } from '../../../entities/well/api/useWells';
 import { useAppStore } from '../../../app/store/useAppStore';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -10,11 +11,23 @@ import { defaultPosition, ATTRIBUTION, URL } from '../config/mapConfig';
 import styles from './Map.module.css'
 
 export const Map = () => {
-   const [selectedWells, clearSelection, wells] = useAppStore(useShallow((state) => [
+   const { data: wells, isLoading, isError } = useWells()
+   const [selectedWells, clearSelection] = useAppStore(useShallow((state) => [
       state.selectedWells, 
       state.clearSelection,
-      state.wells
    ]))
+
+   if (isLoading) {
+      return <h2>Загрузка скважин...</h2>
+   }
+
+   if (isError) {
+      return <h2>Ошибка при загрузке скважин</h2>
+   }
+
+   if (!wells) {
+      return null
+   }
 
    const handleClearSelection = () => clearSelection()
 

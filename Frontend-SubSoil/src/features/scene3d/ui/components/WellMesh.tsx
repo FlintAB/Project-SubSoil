@@ -1,3 +1,5 @@
+import { memo } from "react"
+
 import { useShallow } from "zustand/shallow"
 import { useAppStore } from "../../../../app/store/useAppStore"
 
@@ -9,7 +11,7 @@ import { WellTrajectorySegment } from "./WellTrajectorySegment"
 
 import type { WellMeshProps } from "../../model/types"
 
-export const WellMesh = ({wellId, trajectory, logs, range}: WellMeshProps) => {
+export const WellMesh = memo(({wellId, trajectory, logs, range}: WellMeshProps) => {
    const [setHoveredWell, setActiveWell, activeDepth, activeLog] = useAppStore(useShallow(state => [
       state.setHoveredWell,
       state.setActiveWell,
@@ -60,4 +62,4 @@ export const WellMesh = ({wellId, trajectory, logs, range}: WellMeshProps) => {
          })}
       </>
    )
-}
+})

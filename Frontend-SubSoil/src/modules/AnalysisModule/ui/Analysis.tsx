@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow"
+import { useWells } from "../../../entities/well/api/useWells"
 import { useAppStore } from "../../../app/store/useAppStore"
 
 import { CHART_CONFIG } from "../config/chartConfig"
@@ -9,14 +9,25 @@ import { ChartPanel } from "./components/ChartPanel"
 import { SingleChart } from "./components/SingleChart"
 
 export const Analysis = () => {
-   const [selectedWells, wells] = useAppStore(useShallow(state => [
-      state.selectedWells,
-      state.wells,
-   ]))
+   const { data: wells, isLoading, isError } = useWells()
+   const selectedWells = useAppStore(state => state.selectedWells)
+
+   if (isLoading) {
+      return <h2>Загрузка скважин...</h2>
+   }
+
+   if (isError) {
+      return <h2>Ошибка при загрузке скважин</h2>
+   }
+
+   if (!wells) {
+      return null
+   }
 
    const selectedWellData = wells.filter((well) => selectedWells.includes(well.id))
 
-   if (selectedWellData.length === 0) return <h2>No wells selected</h2>
+   if (selectedWellData.length === 0) return <h2>Нет выбранных скважин</h2>
+
    const depths = selectedWellData[0].logs.map((p) => p.depth)
 
    return (

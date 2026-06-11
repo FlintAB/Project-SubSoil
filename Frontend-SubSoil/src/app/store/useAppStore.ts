@@ -1,12 +1,10 @@
 import { create } from "zustand"
-import type { LogProperty, Well } from "../../entities/well/types/types"
+import type { LogProperty } from "../../entities/well/types/types"
 
 /**
  * !Переписать selectedWells на new Set
  */
 type State = {
-   wells: Well[]
-
    selectedWells: string[]
    hiddenWells: Set<string>
 
@@ -28,14 +26,9 @@ type Actions = {
 
    toggleWellSelection: (id: string) => void
    toggleWellVisibility: (id: string) => void
-
-   addWell: (well: Well) => void
-   removeWell: (wellId: string) => void
 }
 
 export const useAppStore = create<State & Actions>((set) => ({
-   wells: [],
-
    selectedWells: [],
    hiddenWells: new Set<string>(),
 
@@ -73,15 +66,4 @@ export const useAppStore = create<State & Actions>((set) => ({
          hiddenWells: nextHiddenWells
       }
    }),
-
-   addWell: (well) => set(state => ({
-      wells: [...state.wells, well]
-   })),
-
-   removeWell: (wellId) => set(state => ({
-      wells: state.wells.filter(
-         well => well.id !== wellId
-      )
-   })),
-
 }))

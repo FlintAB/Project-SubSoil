@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { useShallow } from "zustand/shallow";
 import { useAppStore } from "../../../../../app/store/useAppStore";
 
@@ -10,7 +12,7 @@ import type { ActiveDepthMarkerProps } from "../../../model/types";
 
 import styles from './ActiveDepthmarker.module.css'
 
-export const ActiveDepthMarker = ({trajectory, wellId, logs}: ActiveDepthMarkerProps) => {
+export const ActiveDepthMarker = memo(({trajectory, wellId, logs}: ActiveDepthMarkerProps) => {
    const [activeDepth, activeWell, activeLog] = useAppStore(useShallow(state => [
       state.activeDepth,
       state.activeWell,
@@ -41,4 +43,4 @@ export const ActiveDepthMarker = ({trajectory, wellId, logs}: ActiveDepthMarkerP
          </Html>
       </>
    )
-}
+})

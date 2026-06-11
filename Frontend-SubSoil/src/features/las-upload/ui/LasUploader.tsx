@@ -1,37 +1,42 @@
-import { useAppStore } from "../../../app/store/useAppStore"
-
-import { mapParsedLasToWell } from "../../../shared/lib/las/mapParsedLasToWell"
-import { parseLAS } from "../../../shared/lib/las/parseLAS"
+import { useUploadWell } from "../../../entities/well/api/useUploadWell"
 
 export const LasUploader = () => {
+   const uploadMutation = useUploadWell()
 
-   const addWell = useAppStore(state => state.addWell)
+   const uploadFile = (file: File) => {
+      const formData = new FormData();
 
-   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      formData.append("file", file);
+
+      uploadMutation.mutate(formData);
+   };
+
+   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0]
 
       if (!file) return
 
-      const text = await file.text()
-      const parsedLAS = parseLAS(text)
-      const well = mapParsedLasToWell({
-         parsedLAS,
-         fileName: file.name,
-      })
-
-      addWell(well)
+      uploadFile(file)
    }
 
    const handleLoadDemo = async () => {
       const response = await fetch('/test-well.las')
-      const text = await response.text()
-      const parsed = parseLAS(text)
-      const well = mapParsedLasToWell({
-         parsedLAS: parsed,
-         fileName: 'test-wells.las',
-      })
 
-      addWell(well)
+      if (!response.ok) {
+         throw new Error("Не удалось загрузить демо-файл");
+      }
+
+      const blob = await response.blob()
+
+      const file = new File(
+         [blob],
+         'test-well.las',
+         {
+            type: 'text/plain',
+         },
+      )
+
+      uploadFile(file)
    }
 
    return (
@@ -40,11 +45,26 @@ export const LasUploader = () => {
             type="file"
             accept=".las"
             onChange={handleChange}
+            disabled={uploadMutation.isPending}
          />
 
-         <button onClick={handleLoadDemo}>
-            Загрузить демо-данные
+         <button onClick={handleLoadDemo} disabled={uploadMutation.isPending}>
+            {uploadMutation.isPending
+               ? "Загрузка..."
+               : "Загрузить демо-данные"}
          </button>
+
+         {uploadMutation.isError && (
+            <div>
+               Ошибка загрузки файла
+            </div>
+         ) 
+         ||
+         uploadMutation.isSuccess && (
+            <div>
+               Файл успешно загружен
+            </div>
+         )}
       </div>
    )
 }
