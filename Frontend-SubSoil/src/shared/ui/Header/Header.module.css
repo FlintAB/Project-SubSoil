@@ -1,0 +1,39 @@
+.container {
+   height: 50px;
+
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+   padding: 0 24px;
+
+   background: var(--bg-secondary);
+
+   border-bottom: 1px solid var(--border-color);
+}
+
+.nav {
+   display: flex;
+   gap: 12px;
+}
+
+.link {
+   padding: 10px 16px;
+
+   border-radius: var(--radius-md);
+
+   color: var(--text-secondary);
+   text-decoration: none;
+
+   transition: 0.2s;
+}
+
+.link:hover {
+   background: var(--hover);
+   color: var(--text-primary);
+}
+
+.activeLink {
+   background: var(--bg-secondary);
+   color: var(--text-primary);
+}

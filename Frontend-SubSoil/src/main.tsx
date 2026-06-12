@@ -6,6 +6,8 @@ import { routeTree } from './routeTree.gen'
 import { QueryProvider } from './app/providers/QueryProvider/QueryProvider'
 
 import "leaflet/dist/leaflet.css"
+import './variable.css';
+import './index.css'
 
 declare module '@tanstack/react-router' {
   interface Register {

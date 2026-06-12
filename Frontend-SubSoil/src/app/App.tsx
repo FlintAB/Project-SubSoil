@@ -1,25 +1,15 @@
-import { Link, Outlet } from "@tanstack/react-router"
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
+import {  Outlet } from "@tanstack/react-router"
+
+import { Header } from "../shared/ui/Header/Header"
+
+import styles from './App.module.css'
 
 export const App = () => {
    return (
-      <>      
-         <Link to="/">
-            Map Page
-         </Link>{' '}
-
-         <Link to="/analysis">
-            Analysis Page
-         </Link>
-
-         <Link to="/scene3d">
-            Scene 3D Page
-         </Link>
-
-         <div>Hello "__root"!</div>
+      <div className={styles['main-bg']}>      
+         <Header />
 
          <Outlet />
-         <TanStackRouterDevtools />
-      </>
+      </div>
    )
 }

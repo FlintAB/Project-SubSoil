@@ -34,6 +34,12 @@ export const ColorLegend = () => {
                </span>
             </div>
          ))}
+         {/* Непрерывный градиент-бар */}
+         <div className="mt-3 h-2 w-full rounded-full bg-[linear-gradient(90deg,rgb(37,99,235),rgb(34,197,94),rgb(234,179,8),rgb(220,38,38))]" />
+         <div className="mt-1 flex justify-between text-[10px] text-muted-foreground">
+            <span>мин</span>
+            <span>макс</span>
+         </div>
       </div>
    )
 }

@@ -15,6 +15,16 @@ export const wellService = {
    },
 
    create(well: Well) {
+      const exists = wells.some(
+         item => item.id === well.id
+      )
+
+      if (exists) {
+         throw new Error(
+            'Well already exists'
+         )
+      }
+
       wells.push(well)
 
       return well

@@ -1,10 +1,15 @@
 .div_container {
-   height: 70vh;
-   width: 70vh;
-   margin: 0 auto;
+   display: grid;
+
+   grid-template-columns: 1110px 1fr;
+
+   height: 75vh;
+
+   outline: 1px solid var(--border-color);
+
+   border-radius: var(--radius-lg);
 }
 
 .map_container {
-   height: 100%;
-   width: 100%;
+   height: 75vh;
 }

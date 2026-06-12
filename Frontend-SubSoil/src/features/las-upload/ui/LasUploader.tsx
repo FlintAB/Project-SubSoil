@@ -1,17 +1,29 @@
+import { useState } from "react"
+
 import { useUploadWell } from "../../../entities/well/api/useUploadWell"
+
+import styles from "./LasUploader.module.css"
 
 export const LasUploader = () => {
    const uploadMutation = useUploadWell()
 
+   const [fileName, setFileName] = useState(
+      "Файл не выбран"
+   )
+
    const uploadFile = (file: File) => {
-      const formData = new FormData();
+      const formData = new FormData()
 
-      formData.append("file", file);
+      formData.append("file", file)
 
-      uploadMutation.mutate(formData);
-   };
+      setFileName(file.name)
 
-   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      uploadMutation.mutate(formData)
+   }
+
+   const handleChange = (
+      event: React.ChangeEvent<HTMLInputElement>
+   ) => {
       const file = event.target.files?.[0]
 
       if (!file) return
@@ -20,51 +32,90 @@ export const LasUploader = () => {
    }
 
    const handleLoadDemo = async () => {
-      const response = await fetch('/test-well.las')
+      const response = await fetch("/test-well.las")
 
       if (!response.ok) {
-         throw new Error("Не удалось загрузить демо-файл");
+         throw new Error(
+            "Не удалось загрузить демо-файл"
+         )
       }
 
       const blob = await response.blob()
 
       const file = new File(
          [blob],
-         'test-well.las',
+         "test-well.las",
          {
-            type: 'text/plain',
-         },
+            type: "text/plain",
+         }
       )
 
       uploadFile(file)
    }
 
    return (
-      <div>
-         <input
-            type="file"
-            accept=".las"
-            onChange={handleChange}
-            disabled={uploadMutation.isPending}
-         />
+      <div className={styles.card}>
 
-         <button onClick={handleLoadDemo} disabled={uploadMutation.isPending}>
-            {uploadMutation.isPending
-               ? "Загрузка..."
-               : "Загрузить демо-данные"}
-         </button>
+         <div className={styles.header}>
 
-         {uploadMutation.isError && (
             <div>
-               Ошибка загрузки файла
+               <h3>Загрузка данных</h3>
+
+               <p>
+                  LAS или демо-набор
+               </p>
             </div>
-         ) 
-         ||
-         uploadMutation.isSuccess && (
-            <div>
-               Файл успешно загружен
+         </div>
+
+         <div className={styles.content}>
+
+            <label className={styles.uploadButton}>
+
+               <span>
+                  Выбрать файл
+               </span>
+
+               <input
+                  type="file"
+                  accept=".las"
+                  onChange={handleChange}
+                  hidden
+               />
+            </label>
+
+            <button
+               className={styles.demoButton}
+               onClick={handleLoadDemo}
+               disabled={uploadMutation.isPending}
+            >
+
+               <span>
+                  {uploadMutation.isPending
+                     ? "Загрузка..."
+                     : "Загрузить демо-данные"}
+               </span>
+            </button>
+
+            <div className={styles.fileInfo}>
+
+               <span>
+                  {fileName}
+               </span>
             </div>
-         )}
+
+            {uploadMutation.isError && (
+               <div className={styles.error}>
+                  Ошибка загрузки файла
+               </div>
+            )}
+
+            {uploadMutation.isSuccess && (
+               <div className={styles.success}>
+                  Файл успешно загружен
+               </div>
+            )}
+         </div>
+
       </div>
    )
 }

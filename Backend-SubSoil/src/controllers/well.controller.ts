@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { v4 as uuid } from 'uuid'
 
 import { wellService } from '../services/well.service'
 
@@ -41,7 +40,6 @@ export const wellController = {
    ) {
 
       if (!req.file) {
-
          return res
             .status(400)
             .json({
@@ -50,21 +48,35 @@ export const wellController = {
       }
 
       const text = req.file.buffer.toString(
-            'utf8'
-         )
+         'utf8'
+      )
 
       const parsedLAS = parseLAS(text)
 
       const well = mapParsedLasToWell({
-            parsedLAS,
-            fileName: req.file.originalname,
-         })
+         parsedLAS,
+         fileName: req.file.originalname,
+      })
 
-      well.id = uuid()
+      try {
+         const createdWell =
+            wellService.create(well)
 
-      wellService.create(well)
+         return res
+            .status(201)
+            .json(createdWell)
 
-      res.status(201).json(well)
+      } catch (error) {
+
+         return res
+            .status(409)
+            .json({
+               message:
+                  error instanceof Error
+                     ? error.message
+                     : 'Unknown error'
+            })
+         }
    },
 
    delete(

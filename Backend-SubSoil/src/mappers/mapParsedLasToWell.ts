@@ -28,7 +28,9 @@ export function mapParsedLasToWell({ parsedLAS,fileName }: Props): Well {
    }))
 
    return {
-      id: crypto.randomUUID(),
+      id:
+         parsedLAS.wellInfo.wellName ??
+         fileName.replace('.las', ''),
 
       name:
          parsedLAS.wellInfo.wellName ??

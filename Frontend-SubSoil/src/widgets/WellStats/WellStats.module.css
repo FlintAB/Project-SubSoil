@@ -1,0 +1,112 @@
+.card {
+   background: var(--bg-card);
+
+   border: 1px solid var(--border-color);
+
+   border-radius: 24px;
+
+   overflow: hidden;
+}
+
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+
+   padding: 20px;
+}
+
+.header h3 {
+   margin: 0;
+
+   color: var(--text-primary);
+
+   font-size: 24px;
+}
+
+.header p {
+   margin-top: 6px;
+
+   color: var(--text-secondary);
+}
+
+.reset {
+   border: none;
+   background: transparent;
+
+   color: white;
+
+   cursor: pointer;
+}
+
+.list {
+   display: flex;
+   flex-direction: column;
+
+   gap: 12px;
+
+   padding: 0 12px 20px;
+}
+
+.item {
+   display: flex;
+   align-items: center;
+
+   min-height: 72px;
+
+   border-radius: 18px;
+
+   padding: 16px;
+
+   border: 1px solid transparent;
+
+   transition: 0.2s;
+}
+
+.selected {
+   border-color: var(--accent);
+
+   background: rgba(245, 158, 11, 0.08);
+}
+
+.left {
+   display: flex;
+   align-items: center;
+
+   gap: 16px;
+}
+
+.checkbox {
+   width: 28px;
+   height: 28px;
+
+   border-radius: 50%;
+
+   border: 2px solid var(--border-color);
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   color: black;
+
+   font-weight: 700;
+}
+
+.checked {
+   background: var(--accent);
+
+   border-color: var(--accent);
+}
+
+.item h4 {
+   margin: 0;
+
+   color: white;
+}
+
+.item p {
+   margin-top: 4px;
+
+   color: var(--text-secondary);
+}
