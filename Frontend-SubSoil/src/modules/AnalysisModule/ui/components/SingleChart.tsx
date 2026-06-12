@@ -77,7 +77,7 @@ export const SingleChart = ({ data, wellIds, syncId, unit, property }: SingleCha
                }}
                labelStyle={{ color: "#94a3b8" }}
                labelFormatter={(label) => `Глубина: ${label} м`}
-               formatter={(value: number, name) => [`${value} ${unit}`, name]}
+               formatter={(value, name) => [`${value} ${unit}`, name]}
             />
 
             <ReferenceLine x={activeDepth ?? undefined} stroke="#f59e0b" strokeDasharray="4 2" />
