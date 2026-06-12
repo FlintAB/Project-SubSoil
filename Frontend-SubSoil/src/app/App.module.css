@@ -1,3 +1,4 @@
 .main-bg {
-   background-color: var(--bg-primary);
+   min-height: 100vh;
+   background-color: transparent;
 }

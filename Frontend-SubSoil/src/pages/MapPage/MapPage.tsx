@@ -7,7 +7,7 @@ import styles from './MapPage.module.css'
 export const MapPage = () => {
    return (
       <div className={styles.container}>
-               
+
          <aside className={styles.sidebar}>
             <LasUploader />
 
@@ -15,9 +15,19 @@ export const MapPage = () => {
          </aside>
 
          <main className={styles.content}>
-            <h3>Карта скважин</h3>
-            <p>Выберите на карте скважину для анализа</p>
-            <Map />
+            <div className={styles.head}>
+               <div>
+                  <span className={styles.eyebrow}>Геопространственный обзор</span>
+                  <h1 className={styles.title}>Карта скважин</h1>
+                  <p className={styles.subtitle}>
+                     Выберите на карте скважины и область для загрузки и анализа данных
+                  </p>
+               </div>
+            </div>
+
+            <div className={styles.mapWrap}>
+               <Map />
+            </div>
          </main>
 
       </div>

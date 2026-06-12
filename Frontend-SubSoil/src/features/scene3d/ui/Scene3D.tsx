@@ -61,11 +61,27 @@ export const Scene3D = () => {
 
 
    if (isLoading) {
-      return <div>Загрузка скважин...</div>
+      return <div className={styles.state}>Загрузка скважин…</div>
    }
 
    if (isError) {
-      return <div>Ошибка при получении скважин: {error.message}</div>
+      return (
+         <div className={`${styles.state} ${styles.stateError}`}>
+            Ошибка при получении скважин: {error.message}
+         </div>
+      )
+   }
+
+   if (visibleWells.length === 0) {
+      return (
+         <div className={styles.empty}>
+            <h3 className={styles.emptyTitle}>Скважины не выбраны</h3>
+            <p className={styles.emptyText}>
+               Выберите скважины на карте, чтобы увидеть их траектории
+               и каротаж в трёхмерном пространстве.
+            </p>
+         </div>
+      )
    }
 
 
@@ -75,10 +91,10 @@ export const Scene3D = () => {
 
             <OrbitControls />
 
-            <ambientLight intensity={0.5}/>
-            <directionalLight position={[5, 5, 5]} />
+            <ambientLight intensity={0.6}/>
+            <directionalLight position={[5, 5, 5]} intensity={1.1} />
 
-            <gridHelper args={[20, 20]} />
+            <gridHelper args={[20, 20, '#334155', '#1e293b']} />
             <axesHelper args={[10]} />
 
             {visibleWells.map(well => 
