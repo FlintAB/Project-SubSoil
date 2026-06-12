@@ -13,16 +13,18 @@ export const MapMarker = ({id, lat, lng}: Omit<Well, 'trajectory' | 'logs'>) => 
 
    const isSelected = selectedWells.includes(id)
 
+   const color = isSelected ? '#f59e0b' : '#22c55e'
+
    return (
       <CircleMarker 
          center={[lat, lng]} 
          radius={isSelected ? 11 : 7} 
          eventHandlers={{ click: () => toggleWellSelection(id)}} 
          pathOptions={{
-            color: '#22c55e',
-            weight: isSelected ? 2.5 : 1.5,
-            fillColor: '#22c55e',
-            fillOpacity: isSelected ? 0.95 : 0.65,}}>
+            color,
+            weight: isSelected ? 3 : 1.5,
+            fillColor: color,
+            fillOpacity: isSelected ? 0.9 : 0.55,}}>
       </CircleMarker>
    )
 }

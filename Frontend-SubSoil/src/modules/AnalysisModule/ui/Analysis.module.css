@@ -1,0 +1,79 @@
+.root {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.header {
+   display: flex;
+   flex-direction: column;
+}
+
+.eyebrow {
+   font-family: var(--font-mono);
+   font-size: 11px;
+   font-weight: 500;
+   letter-spacing: 0.1em;
+   text-transform: uppercase;
+
+   color: var(--accent);
+
+   margin-bottom: 6px;
+}
+
+.title {
+   margin: 0;
+   font-size: 26px;
+}
+
+.meta {
+   margin: 8px 0 0;
+   color: var(--text-secondary);
+   font-size: 14px;
+}
+
+.meta strong {
+   color: var(--text-primary);
+}
+
+.charts {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.state {
+   padding: 40px 24px;
+   color: var(--text-secondary);
+   font-size: 15px;
+}
+
+.stateError {
+   color: var(--danger);
+}
+
+.empty {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+
+   padding: 48px 28px;
+
+   border: 1px dashed var(--border-color);
+   border-radius: var(--radius-lg);
+
+   background: var(--bg-card);
+
+   text-align: center;
+}
+
+.emptyTitle {
+   margin: 0;
+   font-size: 20px;
+}
+
+.emptyText {
+   margin: 0 auto;
+   max-width: 44ch;
+   color: var(--text-secondary);
+}

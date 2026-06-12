@@ -7,13 +7,26 @@ import styles from './AnalysisPage.module.css'
 export const AnalysisPage = () => {
    return (
       <div className={styles.container}>
-         <div className={styles['left-pane']}>
+         <section className={styles['left-pane']}>
             <Analysis />
-         </div>
-         <div className={styles['right-pane']}>
-            <ColorLegend />
-            <Scene3D />
-         </div>
+         </section>
+
+         <section className={styles['right-pane']}>
+            <header className={styles.sceneHeader}>
+               <div>
+                  <span className={styles.eyebrow}>Пространственная визуализация</span>
+                  <h2 className={styles.sceneTitle}>3D-сцена</h2>
+               </div>
+            </header>
+
+            <div className={styles.sceneViewport}>
+               <Scene3D />
+
+               <div className={styles.legendOverlay}>
+                  <ColorLegend />
+               </div>
+            </div>
+         </section>
       </div>
    )
 }

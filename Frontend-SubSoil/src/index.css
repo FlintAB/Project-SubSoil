@@ -1,15 +1,87 @@
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
 a:link,
 a:visited {
    text-decoration: none;
-   color: grey;
+   color: var(--accent);
+   transition: color 0.2s;
+}
+
+a:hover {
+   color: var(--accent-hover);
 }
 
 html {
    height: 100%;
+   background-color: var(--bg-primary);
 }
 
 body {
+   margin: 0;
+   min-height: 100%;
    background-color: var(--bg-primary);
    color: var(--text-primary);
-   height: 100%;
+
+   font-family: var(--font-sans);
+   font-size: 14px;
+   line-height: 1.55;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+
+   /* Точечный фон как на сайте — тонкая сетка точек поверх глубокого тёмного фона */
+   background-image:
+      radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0);
+   background-size: var(--dot-size) var(--dot-size);
+   background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+   font-weight: 600;
+   line-height: 1.25;
+   letter-spacing: -0.01em;
+   color: var(--text-primary);
+   text-wrap: balance;
+}
+
+p {
+   text-wrap: pretty;
+}
+
+#root {
+   min-height: 100%;
+}
+
+/* Тонкие современные скроллбары */
+* {
+   scrollbar-width: thin;
+   scrollbar-color: var(--border-hover) transparent;
+}
+
+*::-webkit-scrollbar {
+   width: 10px;
+   height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+   background: var(--border-hover);
+   border-radius: 999px;
+   border: 2px solid transparent;
+   background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+   background: var(--text-muted);
+   background-clip: padding-box;
 }
