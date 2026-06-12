@@ -8,10 +8,11 @@ import styles from './WellStats.module.css'
 
 export const WellStats = () => {
    const { data: wells } = useWells()
-      const [selectedWells, clearSelection] = useAppStore(
+      const [selectedWells, clearSelection, toggleWellSelection] = useAppStore(
       useShallow(state => [
          state.selectedWells,
          state.clearSelection,
+         state.toggleWellSelection,
       ])
    )
 
@@ -22,26 +23,33 @@ export const WellStats = () => {
                <h3>Скважины</h3>
 
                <p>
-                  Выбрано: {selectedWells.length} из {wells?.length ?? 0}
+                  Выбрано: <strong>{selectedWells.length}</strong> из {wells?.length ?? 0}
                </p>
             </div>
 
             <button
                className={styles.reset}
                onClick={clearSelection}
+               disabled={selectedWells.length === 0}
             >
                Сбросить
             </button>
          </div>
 
          <div className={styles.list}>
+            {wells?.length === 0 && (
+               <p className={styles.empty}>Нет загруженных скважин</p>
+            )}
+
             {wells?.map(well => {
                const isSelected =
                   selectedWells.includes(well.id)
 
                return (
-                  <div
+                  <button
+                     type="button"
                      key={well.id}
+                     onClick={() => toggleWellSelection(well.id)}
                      className={`${styles.item} ${
                         isSelected
                            ? styles.selected
@@ -69,12 +77,19 @@ export const WellStats = () => {
                            </p>
                         </div>
                      </div>
-                  </div>
+                  </button>
                )
             })}
-
-            <Link to={'/analysis'}>Перейти к анализу</Link>
          </div>
+
+         <Link
+            to={'/analysis'}
+            className={`${styles.cta} ${
+               selectedWells.length === 0 ? styles.ctaDisabled : ""
+            }`}
+         >
+            Перейти к анализу
+         </Link>
       </div>
    )
 }

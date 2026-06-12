@@ -32,11 +32,21 @@ export const Map = () => {
    const { data: wells, isLoading, isError } = useWells()
 
    if (isLoading) {
-      return <h2>Загрузка скважин...</h2>
+      return (
+         <div className={styles['div_container']}>
+            <div className={styles.state}>Загрузка скважин…</div>
+         </div>
+      )
    }
 
    if (isError) {
-      return <h2>Ошибка при загрузке скважин</h2>
+      return (
+         <div className={styles['div_container']}>
+            <div className={`${styles.state} ${styles.stateError}`}>
+               Ошибка при загрузке скважин
+            </div>
+         </div>
+      )
    }
 
    if (!wells) {

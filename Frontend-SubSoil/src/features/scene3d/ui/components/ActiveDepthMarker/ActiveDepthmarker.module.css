@@ -1,7 +1,23 @@
 .info-card {
-   background: lightgray;
-   border-radius: 6px;
-   padding: 8px;
-   font-size: 12px;
+   background: rgba(15, 25, 45, 0.95);
+   color: #fff;
+
+   border: 1px solid rgba(245, 158, 11, 0.4);
+   border-radius: 8px;
+
+   padding: 8px 10px;
+
+   font-family: 'JetBrains Mono', ui-monospace, monospace;
+   font-size: 11px;
+   line-height: 1.4;
+
    white-space: nowrap;
+
+   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+   pointer-events: none;
+}
+
+.info-card p {
+   margin: 0;
 }

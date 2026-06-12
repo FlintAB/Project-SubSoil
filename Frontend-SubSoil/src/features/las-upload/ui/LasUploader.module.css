@@ -3,13 +3,15 @@
 
    border: 1px solid var(--border-color);
 
-   border-radius: 24px;
+   border-radius: var(--radius-lg);
 
    overflow: hidden;
+
+   box-shadow: var(--shadow-card);
 }
 
 .header {
-   padding: 20px;
+   padding: 18px 20px;
 
    border-bottom: 1px solid var(--border-color);
 }
@@ -17,77 +19,128 @@
 .header h3 {
    margin: 0;
 
-   color: white;
-
-   font-size: 24px;
+   font-size: 17px;
 }
 
 .header p {
-   margin-top: 6px;
+   margin-top: 4px;
 
    color: var(--text-secondary);
+   font-size: 13px;
 }
 
 .content {
-   padding: 20px;
+   padding: 18px 20px 20px;
 
    display: flex;
    flex-direction: column;
 
-   gap: 16px;
+   gap: 12px;
 }
 
 .uploadButton {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
    width: 100%;
-
-   height: 56px;
-
-   align-content: center;
+   height: 48px;
 
    border: none;
-
-   border-radius: 16px;
+   border-radius: var(--radius-md);
 
    background: var(--accent);
 
-   color: black;
+   color: #050b14;
 
-   font-size: 18px;
+   font-size: 15px;
    font-weight: 600;
+   font-family: var(--font-sans);
 
    cursor: pointer;
+   transition: background 0.2s, transform 0.1s;
+}
+
+.uploadButton:hover {
+   background: var(--accent-hover);
+}
+
+.uploadButton:active {
+   transform: translateY(1px);
 }
 
 .demoButton {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
    width: 100%;
+   height: 48px;
 
-   height: 56px;
+   border-radius: var(--radius-md);
+   border: 1px solid rgba(245, 158, 11, 0.4);
 
-   border-radius: 16px;
+   background: rgba(245, 158, 11, 0.06);
 
-   border: 2px solid rgba(245, 158, 11, 0.5);
+   color: var(--accent-hover);
 
-   background: transparent;
-
-   color: white;
-
-   font-size: 18px;
+   font-size: 15px;
    font-weight: 600;
+   font-family: var(--font-sans);
 
    cursor: pointer;
+   transition: background 0.2s, border-color 0.2s;
+}
+
+.demoButton:hover:not(:disabled) {
+   background: rgba(245, 158, 11, 0.12);
+   border-color: var(--accent);
+}
+
+.demoButton:disabled {
+   opacity: 0.6;
+   cursor: progress;
 }
 
 .fileInfo {
    display: flex;
    align-items: center;
 
-   min-height: 56px;
+   min-height: 44px;
 
-   padding: 0 16px;
+   padding: 0 14px;
 
-   border-radius: 16px;
-
+   border-radius: var(--radius-md);
    border: 1px dashed var(--border-color);
 
    color: var(--text-secondary);
+
+   font-family: var(--font-mono);
+   font-size: 12px;
+
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.error,
+.success {
+   padding: 10px 14px;
+
+   border-radius: var(--radius-sm);
+
+   font-size: 13px;
+   font-weight: 500;
+}
+
+.error {
+   background: rgba(239, 68, 68, 0.1);
+   border: 1px solid rgba(239, 68, 68, 0.3);
+   color: #fca5a5;
+}
+
+.success {
+   background: rgba(34, 197, 94, 0.1);
+   border: 1px solid rgba(34, 197, 94, 0.3);
+   color: #86efac;
 }
