@@ -24,11 +24,13 @@ export const LasUploader = () => {
    const handleChange = (
       event: React.ChangeEvent<HTMLInputElement>
    ) => {
-      const file = event.target.files?.[0]
+      const files = event.target.files
 
-      if (!file) return
+      if (!files) return
 
-      uploadFile(file)
+      Array.from(files).forEach(file => {
+         uploadFile(file)
+      })
    }
 
    const handleLoadDemo = async () => {
@@ -78,6 +80,7 @@ export const LasUploader = () => {
                <input
                   type="file"
                   accept=".las"
+                  multiple
                   onChange={handleChange}
                   hidden
                />

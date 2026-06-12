@@ -1,5 +1,5 @@
 ~Well Information
-WELL. Well Alpha
+Well DEMO. Well DEMO
 
 ~Location
 LAT 55.10

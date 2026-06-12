@@ -59,8 +59,7 @@ export const wellController = {
       })
 
       try {
-         const createdWell =
-            wellService.create(well)
+         const createdWell = wellService.create(well)
 
          return res
             .status(201)
