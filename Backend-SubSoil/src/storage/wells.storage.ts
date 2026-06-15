@@ -5,8 +5,8 @@ export const wells: Well[] = [
       id: "скв-101",
       name: "Скважина 101",
 
-      lat: 61.25,
-      lng: 73.42,
+      lat: 55.7900,
+      lng: 37.6200,
 
       trajectory: [
          { depth: 0, x: 0.0, y: 0, z: 0.0 },
@@ -59,8 +59,8 @@ export const wells: Well[] = [
       id: "скв-102",
       name: "Скважина 102",
 
-      lat: 61.31,
-      lng: 73.58,
+      lat: 55.7558,
+      lng: 37.6176,
 
       trajectory: [
          { depth: 0, x: 2.0, y: 0, z: 0.5 },
@@ -113,8 +113,8 @@ export const wells: Well[] = [
       id: "скв-103",
       name: "Скважина 103",
 
-      lat: 61.18,
-      lng: 73.73,
+      lat: 55.7200,
+      lng: 37.6150,
 
       trajectory: [
          { depth: 0, x: -2.0, y: 0, z: 1.0 },
