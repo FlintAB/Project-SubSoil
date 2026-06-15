@@ -8,6 +8,12 @@ const app = express()
 //app.use(cors())
 app.use(express.json())
 
+app.get('/', (_, res) => {
+   res.json({
+      status: 'ok',
+   })
+})
+
 app.use('/api/wells', wellRouter)
 
 export default app
