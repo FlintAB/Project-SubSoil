@@ -1,11 +1,11 @@
 import express from 'express'
-//import cors from 'cors'
+import cors from 'cors'
 
 import { wellRouter } from './routes/well.routes'
 
 const app = express()
 
-//app.use(cors())
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (_, res) => {
